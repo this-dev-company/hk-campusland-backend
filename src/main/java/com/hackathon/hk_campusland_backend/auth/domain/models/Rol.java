@@ -4,6 +4,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -14,6 +15,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,8 +23,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "roles")
-public class Rol {
+public class Rol implements Serializable {
 
     @Id
     @UuidGenerator
@@ -32,7 +35,5 @@ public class Rol {
     @Column(columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
     private String rol;
 
-    @JsonIgnoreProperties({"roles", "handler", "hibernateLazyInitializer"})
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    
 }   
