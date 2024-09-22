@@ -20,7 +20,7 @@ public class RolAdapter implements RoleService {
     private RoleRepository roleRepository;
 
     @Override
-    public Optional<Rol> findById(String id) {
+    public Optional<Rol> findById(Long id) {
         return roleRepository.findById(id);
     }
 

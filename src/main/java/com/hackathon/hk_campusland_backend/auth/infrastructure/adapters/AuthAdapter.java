@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.AuthResponse;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.LoginRequest;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.RegisterRequest;
+import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
 import com.hackathon.hk_campusland_backend.auth.domain.models.User;
-import com.hackathon.hk_campusland_backend.auth.domain.models.UserRole;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.RoleRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.UserRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.security.jwt.JwtService;
@@ -41,54 +41,26 @@ public class AuthAdapter {
 
     public AuthResponse register(RegisterRequest request) {
 
-        // Buscar los roles por nombre y convertirlos en una lista de objetos UserRole
-        List<UserRole> userRoles = request.getRoles().stream()
+        List<Rol> roles = request.getRoles().stream()
                 .map(roleName -> roleRepository.findByRol(roleName)
-                .map(role -> UserRole.builder()
-                        .user(null) // Este valor será asignado después
-                        .rol(role)
-                        .build())
-                .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
+                        .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
                 .collect(Collectors.toList());
 
-        
 
-        // Crear el usuario
         User user = User.builder()
                 .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword())) // Encriptar la contraseña
-                .roles(userRoles) // Asignar los roles convertidos a UserRole
-                .enabled(true) // Habilitar el usuario por defecto
+                .password(passwordEncoder.encode( request.getPassword())) 
+                .roles(roles) 
+                .alias(request.getAlias())
+                .enabled(true) 
                 .build();
-        
-                
 
-        // Establecer el usuario en los objetos UserRole
-        userRoles.forEach(userRole -> userRole.setUser(user));
-
-        
-        
-
-        // Guardar el usuario
         userRepository.save(user);
 
-        System.out.println("""
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        """);
-
-        // Generar el token JWT
         return AuthResponse.builder()
-                .token(jwtService.getToken(user))
-                .build();
+            .token(jwtService.getToken(user))
+            .build();
+
     }
 
 }

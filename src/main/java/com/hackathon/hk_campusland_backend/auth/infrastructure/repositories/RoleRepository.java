@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
 
-public interface RoleRepository extends JpaRepository<Rol, String> {
+public interface RoleRepository extends JpaRepository<Rol, Long> {
     Optional<Rol> findByRol(String rol); 
 }

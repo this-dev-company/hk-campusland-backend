@@ -17,7 +17,7 @@ import com.hackathon.hk_campusland_backend.auth.application.services.RoleService
 import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
 
 @RestController
-@RequestMapping("/test/role")
+@RequestMapping("/api/role")
 public class RoleController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Rol> showRole(@PathVariable String id){
+    public Optional<Rol> showRole(@PathVariable Long id){
         return roleService.findById(id);
     }
 

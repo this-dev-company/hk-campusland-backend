@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 }

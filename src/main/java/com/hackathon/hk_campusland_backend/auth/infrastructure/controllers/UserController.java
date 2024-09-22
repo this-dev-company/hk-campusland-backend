@@ -1,15 +1,11 @@
 package com.hackathon.hk_campusland_backend.auth.infrastructure.controllers;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +15,7 @@ import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -32,13 +28,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<User> showUser(@PathVariable String id){
+    public Optional<User> showUser(@PathVariable Long id){
         return iUserService.findById(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.created(URI.create("/user/userID")).body(iUserService.save(user));
     }
 
 }

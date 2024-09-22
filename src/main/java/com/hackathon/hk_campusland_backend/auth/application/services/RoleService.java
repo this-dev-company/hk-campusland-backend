@@ -7,7 +7,7 @@ import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
 
 public interface RoleService {
 
-    Optional<Rol> findById(String id);
+    Optional<Rol> findById(Long id);
 
     List<Rol> getAll();
     
