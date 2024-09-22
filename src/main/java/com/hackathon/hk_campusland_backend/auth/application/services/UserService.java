@@ -9,6 +9,6 @@ public interface UserService {
 
     Optional<User> findById(Long id);
     
-    List<User> findAll();
+    List<User> getAll();
 
 }

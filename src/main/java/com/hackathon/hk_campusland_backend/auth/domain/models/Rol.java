@@ -1,12 +1,10 @@
 package com.hackathon.hk_campusland_backend.auth.domain.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
-import java.io.Serializable;
-import java.util.List;
 
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -17,8 +15,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,16 +25,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
 @Table(name = "roles")
-public class Rol implements Serializable {
+public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Por favor, añade un nombre para el rol")
-    @Column(columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
+    @NotNull(message = "El nombre del rol no puede ser nulo")
+    @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String rol;
 
     @JsonIgnoreProperties({"roles", "handler", "hibernateLazyInitializer"})

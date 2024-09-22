@@ -1,7 +1,6 @@
 package com.hackathon.hk_campusland_backend.auth.infrastructure.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hackathon.hk_campusland_backend.auth.application.services.RoleService;
 import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {
@@ -24,17 +25,20 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping
-    public List<Rol> listRoles(){
-        return roleService.getAll();
-    }
+    public ResponseEntity<List<Rol>> listRoles() {
+        List<Rol> roles = roleService.getAll();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    } 
 
     @GetMapping("/{id}")
-    public Optional<Rol> showRole(@PathVariable Long id){
-        return roleService.findById(id);
+    public ResponseEntity<Rol> showRol(@PathVariable Long id){
+        return roleService.findById(id)
+            .map(rol -> new ResponseEntity<>(rol, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Rol> createRol(@RequestBody Rol rol){
+    public ResponseEntity<Rol> saveRol(@Valid @RequestBody Rol rol) {
         Rol newRol = roleService.save(rol);
         return new ResponseEntity<>(newRol, HttpStatus.CREATED);
     }

@@ -11,6 +11,7 @@ import com.hackathon.hk_campusland_backend.auth.domain.dto.LoginRequest;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.RegisterRequest;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.adapters.AuthAdapter;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -21,12 +22,12 @@ public class AuthController {
     private final AuthAdapter authAdapter;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request){
         return ResponseEntity.ok(authAdapter.login(request));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request){
         return ResponseEntity.ok(authAdapter.register(request));
     }
 }

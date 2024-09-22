@@ -9,5 +9,8 @@ import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
     Optional<User> findByUsername(String username);
+
+    Optional<User> findByAlias(String alias);
 }

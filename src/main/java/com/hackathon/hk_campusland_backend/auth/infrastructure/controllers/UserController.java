@@ -1,9 +1,10 @@
 package com.hackathon.hk_campusland_backend.auth.infrastructure.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,16 +21,19 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     @Autowired
-    private UserService iUserService;
+    private UserService userService;
 
     @GetMapping
-    public List<User> listUsers(){
-        return iUserService.findAll();
+    public ResponseEntity<List<User>> listUsers() {
+        List<User> users = userService.getAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Optional<User> showUser(@PathVariable Long id){
-        return iUserService.findById(id);
+    public ResponseEntity<User> showUser(@PathVariable Long id){
+        return userService.findById(id)
+            .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

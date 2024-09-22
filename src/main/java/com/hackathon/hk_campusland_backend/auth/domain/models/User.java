@@ -21,6 +21,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,15 +52,21 @@ public class User implements UserDetails {
     private boolean enabled;
 
     @NotBlank(message = "Añade el nombre de usuario")
-    @Column(columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
+    @NotNull(message = "El nombre no puede ser nulo")
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
+    @Size(min = 8, max = 20, message = "Debe tener minimo 8 caracteres y maximo 20 caracteres")
     private String username;
 
     @NotBlank(message = "Añade una contraseña")
+    @NotNull(message = "La contraseña no puede ser nula")
+    @Size(min = 8, max = 255, message = "Debe tener minimo 8 caracteres y maximo 255 caracteres")
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String password;
 
     @NotBlank(message = "Añade un alias")
-    @Column(columnDefinition = "VARCHAR(255)", nullable = false, unique = true)
+    @NotNull(message = "El Alias no puede ser nulo")
+    @Size(min = 8, max = 20, message = "Debe tener minimo 8 caracteres y maximo 20 caracteres")
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String alias;
 
     @Embedded
@@ -85,9 +93,8 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Convertir los roles a GrantedAuthority
         return roles.stream()
-                    .map(role -> new SimpleGrantedAuthority(role.getRol())) // Asumiendo que Role tiene un método getName()
-                    .toList(); // Usar toList() para retornar una lista de GrantedAuthority
+                    .map(role -> new SimpleGrantedAuthority(role.getRol())) 
+                    .toList(); 
     }
 }
