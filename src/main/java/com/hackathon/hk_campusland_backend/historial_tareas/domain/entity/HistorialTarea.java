@@ -1,19 +1,18 @@
 package com.hackathon.hk_campusland_backend.historial_tareas.domain.entity;
 
-import java.util.UUID;
-
-import org.hibernate.annotations.UuidGenerator;
-
 import com.hackathon.hk_campusland_backend.tareas.domain.entity.Tarea;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,15 +29,16 @@ import lombok.ToString;
 public class HistorialTarea {
 
     @Id
-    @UuidGenerator
-    @Column(columnDefinition = "CHAR(36)")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Por favor, añade una descripcion")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String descripcion;
-
-    @Column(nullable = false)
-    private Long horas = 0L;
+    
+    @NotBlank(message = "Por favor, añade cantidad de horas")
+    @Column(columnDefinition = "INT",nullable = false)
+    private int horas = 0;
 
     @ManyToOne
     @JoinColumn(name = "tarea_id")
