@@ -21,7 +21,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,20 +50,17 @@ public class User implements UserDetails {
     @Column(columnDefinition = "BOOL", nullable = false)
     private boolean enabled;
 
-    @NotBlank(message = "Añade el nombre de usuario")
-    @NotNull(message = "El nombre no puede ser nulo")
+    @NotBlank(message = "Por favor, añade el nombre de usuario")
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     @Size(min = 8, max = 20, message = "Debe tener minimo 8 caracteres y maximo 20 caracteres")
     private String username;
 
-    @NotBlank(message = "Añade una contraseña")
-    @NotNull(message = "La contraseña no puede ser nula")
+    @NotBlank(message = "Por favor, añade una contraseña")
     @Size(min = 8, max = 255, message = "Debe tener minimo 8 caracteres y maximo 255 caracteres")
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String password;
 
-    @NotBlank(message = "Añade un alias")
-    @NotNull(message = "El Alias no puede ser nulo")
+    @NotBlank(message = "Por favor, añade un alias")
     @Size(min = 8, max = 20, message = "Debe tener minimo 8 caracteres y maximo 20 caracteres")
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String alias;

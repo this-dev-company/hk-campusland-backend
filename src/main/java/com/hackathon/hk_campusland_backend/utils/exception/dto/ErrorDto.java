@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.auth.exception.dto;
+package com.hackathon.hk_campusland_backend.utils.exception.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -16,10 +16,10 @@ import com.hackathon.hk_campusland_backend.auth.domain.dto.LoginRequest;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.RegisterRequest;
 import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
 import com.hackathon.hk_campusland_backend.auth.domain.models.User;
-import com.hackathon.hk_campusland_backend.auth.exception.dto.BusinessException;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.RoleRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.UserRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.security.jwt.JwtService;
+import com.hackathon.hk_campusland_backend.utils.exception.dto.BusinessException;
 
 import lombok.RequiredArgsConstructor;
 

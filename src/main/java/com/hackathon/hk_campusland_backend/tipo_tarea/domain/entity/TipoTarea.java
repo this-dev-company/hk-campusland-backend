@@ -1,16 +1,17 @@
 package com.hackathon.hk_campusland_backend.tipo_tarea.domain.entity;
 
-import java.util.UUID;
-
-import org.hibernate.annotations.UuidGenerator;
-
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,11 +28,13 @@ import lombok.ToString;
 public class TipoTarea {
 
     @Id
-    @UuidGenerator
-    @Column(columnDefinition = "CHAR(36)")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(columnDefinition = "VARCHAR(30)", nullable = false)
+    @NotBlank(message = "Por favor, añade un tipo de tarea")
+    @NotNull(message = "El tipo de tarea no puede ser nulo")
+    @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String tipo;
 
     @Embedded

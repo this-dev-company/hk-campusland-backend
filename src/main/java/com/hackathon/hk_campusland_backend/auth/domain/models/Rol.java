@@ -15,7 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +32,6 @@ public class Rol {
     private Long id;
 
     @NotBlank(message = "Por favor, añade un nombre para el rol")
-    @NotNull(message = "El nombre del rol no puede ser nulo")
     @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String rol;
