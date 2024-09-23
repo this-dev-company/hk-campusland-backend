@@ -3,6 +3,7 @@ package com.hackathon.hk_campusland_backend.auth.domain.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hackathon.hk_campusland_backend.generos.domain.entity.Genero;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
 import jakarta.persistence.CascadeType;
@@ -16,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -60,10 +62,21 @@ public class User implements UserDetails {
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String password;
 
-    @NotBlank(message = "Por favor, añade un alias")
-    @Size(min = 8, max = 20, message = "Debe tener minimo 8 caracteres y maximo 20 caracteres")
-    @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
-    private String alias;
+    @NotBlank(message = "Por favor, añade un nombre  para la persona")
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    private String nombre;
+
+    @NotBlank(message = "Por favor, añade un apellido  para la persona")
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    private String apellido;
+
+    @NotBlank(message = "Por favor, añade un email  para la persona")
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    private String email;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "genero_id")
+    private Genero genero;
 
     @Embedded
     private Audit audit = new Audit();
