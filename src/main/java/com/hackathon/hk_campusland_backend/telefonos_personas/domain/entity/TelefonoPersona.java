@@ -1,6 +1,6 @@
-package com.hackathon.hk_campusland_backend.telefonos_organizaciones.domain.entity;
+package com.hackathon.hk_campusland_backend.telefonos_personas.domain.entity;
 
-import com.hackathon.hk_campusland_backend.organizaciones.domain.entity.Organizacion;
+import com.hackathon.hk_campusland_backend.personas.domain.entity.Persona;
 import com.hackathon.hk_campusland_backend.tipos_telefonos.domain.entity.TipoTelefono;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
@@ -22,24 +22,24 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "telefonos_organizaciones")
+@Table(name = "telefonos_personas")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TelefonoOrganizacion {
+public class TelefonoPersona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Por favor, añade un numero  para la organizacion")
+    @NotBlank(message = "Por favor, añade un numero  para la persona")
     @Column(nullable = false)
     private String numero;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "organizacion_id")
-    private Organizacion organizacion;
+    @JoinColumn(name = "persona_id")
+    private Persona persona;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_telefono_id")

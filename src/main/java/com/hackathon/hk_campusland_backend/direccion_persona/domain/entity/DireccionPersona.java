@@ -1,7 +1,8 @@
-package com.hackathon.hk_campusland_backend.telefonos_organizaciones.domain.entity;
+package com.hackathon.hk_campusland_backend.direccion_persona.domain.entity;
 
-import com.hackathon.hk_campusland_backend.organizaciones.domain.entity.Organizacion;
-import com.hackathon.hk_campusland_backend.tipos_telefonos.domain.entity.TipoTelefono;
+import com.hackathon.hk_campusland_backend.ciudades.domain.entity.Ciudad;
+import com.hackathon.hk_campusland_backend.personas.domain.entity.Persona;
+import com.hackathon.hk_campusland_backend.tipo_direccion.domain.entity.TipoDireccion;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
 import jakarta.persistence.CascadeType;
@@ -15,35 +16,37 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "telefonos_organizaciones")
+@Table(name = "direccion_persona")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
-public class TelefonoOrganizacion {
+public class DireccionPersona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Por favor, añade un numero  para la organizacion")
-    @Column(nullable = false)
-    private String numero;
+    @NotBlank(message = "Por favor, añade un direccion  para la persona")
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    private String direccion;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "organizacion_id")
-    private Organizacion organizacion;
+    @JoinColumn(name = "persona_id")
+    private Persona persona;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipo_telefono_id")
-    private TipoTelefono tipoTelefono;
+    @JoinColumn(name = "tipo_direccion_id")
+    private TipoDireccion tipoDireccion;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ciudad_id")
+    private Ciudad ciudad;
 
     @Embedded
     private Audit audit = new Audit();
