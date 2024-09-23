@@ -52,16 +52,12 @@ public class AuthAdapter {
     public AuthResponse register(RegisterRequest request) {
 
         Optional<User> existingUser_name = userRepository.findByUsername(request.getUsername());
-        Optional<User> existingUser_alias = userRepository.findByAlias(request.getAlias());
         
         if (existingUser_name.isPresent()) {
             throw new BusinessException("P-300", HttpStatus.CONFLICT, "El Usuario con ese nombre ya existe");
         } 
 
-        if (existingUser_alias.isPresent()) {
-                throw new BusinessException("P-300", HttpStatus.CONFLICT, "El Usuario con ese Alias ya existe");
-        }
-
+        
         List<Rol> roles = request.getRoles().stream()
                 .map(roleName -> roleRepository.findByRol(roleName)
                         .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
@@ -74,7 +70,6 @@ public class AuthAdapter {
                 .password(passwordEncoder.encode( request.getPassword())) 
                 .roles(roles) 
                 .audit(null)
-                .alias(request.getAlias())
                 .enabled(true) 
                 .build();
 

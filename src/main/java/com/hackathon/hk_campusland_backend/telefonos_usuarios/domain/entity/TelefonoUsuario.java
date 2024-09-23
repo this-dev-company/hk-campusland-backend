@@ -1,8 +1,10 @@
-package com.hackathon.hk_campusland_backend.proyectos.domain.entity;
+package com.hackathon.hk_campusland_backend.telefonos_usuarios.domain.entity;
 
 import com.hackathon.hk_campusland_backend.auth.domain.models.User;
+import com.hackathon.hk_campusland_backend.tipos_telefonos.domain.entity.TipoTelefono;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -13,7 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,31 +22,29 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "proyectos")
+@Table(name = "telefonos_usuarios")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Proyecto {
-
+public class TelefonoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Por favor, añade un nombre para el proyecto")
-    @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
-    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
-    private String nombre;
+    @NotBlank(message = "Por favor, añade un numero para el usuario")
+    @Column(nullable = false)
+    private String numero;
 
-    @NotBlank(message = "Por favor, añade una descripcion")
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String descripcion;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_creador_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
     private User user;
-    
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipo_telefono_id")
+    private TipoTelefono tipoTelefono;
+
     @Embedded
     private Audit audit = new Audit();
 }
