@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.auth.domain.models;
+package com.hackathon.hk_campusland_backend.auth.domain.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

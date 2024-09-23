@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.auth.infrastructure.adapters;
+package com.hackathon.hk_campusland_backend.auth.application;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.AuthResponse;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.LoginRequest;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.RegisterRequest;
-import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
-import com.hackathon.hk_campusland_backend.auth.domain.models.User;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.Rol;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.RoleRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.UserRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.security.jwt.JwtService;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AuthAdapter {
+public class AuthServiceImpl {
 
     private final RoleRepository roleRepository;
     private final UserRepository userRepository; // Repositorio para guardar el usuario

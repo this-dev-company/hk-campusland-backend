@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hackathon.hk_campusland_backend.auth.application.AuthServiceImpl;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.AuthResponse;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.LoginRequest;
 import com.hackathon.hk_campusland_backend.auth.domain.dto.RegisterRequest;
-import com.hackathon.hk_campusland_backend.auth.infrastructure.adapters.AuthAdapter;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthAdapter authAdapter;
+    private final AuthServiceImpl authAdapter;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request){

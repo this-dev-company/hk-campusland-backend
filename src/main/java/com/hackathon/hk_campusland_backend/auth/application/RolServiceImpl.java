@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.auth.infrastructure.adapters;
+package com.hackathon.hk_campusland_backend.auth.application;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.hackathon.hk_campusland_backend.auth.application.services.RoleService;
-import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.Rol;
+import com.hackathon.hk_campusland_backend.auth.domain.services.RoleService;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.RoleRepository;
 import com.hackathon.hk_campusland_backend.utils.exception.dto.BusinessException;
 
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RolAdapter implements RoleService {
+public class RolServiceImpl implements RoleService {
 
     @Autowired
     private RoleRepository roleRepository;

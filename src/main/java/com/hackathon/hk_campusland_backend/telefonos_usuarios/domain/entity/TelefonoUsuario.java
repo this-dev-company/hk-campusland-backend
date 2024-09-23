@@ -1,6 +1,6 @@
 package com.hackathon.hk_campusland_backend.telefonos_usuarios.domain.entity;
 
-import com.hackathon.hk_campusland_backend.auth.domain.models.User;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
 import com.hackathon.hk_campusland_backend.tipos_telefonos.domain.entity.TipoTelefono;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 

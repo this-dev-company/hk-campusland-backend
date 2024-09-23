@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hackathon.hk_campusland_backend.auth.application.services.RoleService;
-import com.hackathon.hk_campusland_backend.auth.domain.models.Rol;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.Rol;
+import com.hackathon.hk_campusland_backend.auth.domain.services.RoleService;
 
 import jakarta.validation.Valid;
 

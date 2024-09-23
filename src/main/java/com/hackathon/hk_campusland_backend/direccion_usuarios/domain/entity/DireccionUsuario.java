@@ -1,6 +1,6 @@
 package com.hackathon.hk_campusland_backend.direccion_usuarios.domain.entity;
 
-import com.hackathon.hk_campusland_backend.auth.domain.models.User;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
 import com.hackathon.hk_campusland_backend.ciudades.domain.entity.Ciudad;
 import com.hackathon.hk_campusland_backend.tipo_direccion.domain.entity.TipoDireccion;
 import com.hackathon.hk_campusland_backend.utils.Audit;
