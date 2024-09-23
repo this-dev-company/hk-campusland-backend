@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.auth.exception.controller;
+package com.hackathon.hk_campusland_backend.utils.exception.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.hackathon.hk_campusland_backend.auth.exception.dto.BusinessException;
-import com.hackathon.hk_campusland_backend.auth.exception.dto.ErrorDto;
+import com.hackathon.hk_campusland_backend.utils.exception.dto.BusinessException;
+import com.hackathon.hk_campusland_backend.utils.exception.dto.ErrorDto;
 
 @RestControllerAdvice
 public class ControllerAdvice extends ResponseEntityExceptionHandler{
