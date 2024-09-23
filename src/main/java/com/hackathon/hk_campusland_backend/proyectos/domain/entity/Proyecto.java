@@ -43,7 +43,7 @@ public class Proyecto {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "creador_id")
+    @JoinColumn(name = "usuario_creador_id")
     private User user;
     
     @Embedded

@@ -1,7 +1,7 @@
-package com.hackathon.hk_campusland_backend.integrantes_cargos.domain.entity;
+package com.hackathon.hk_campusland_backend.usuarios_cargos.domain.entity;
 
+import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 import com.hackathon.hk_campusland_backend.cargos.domain.entity.Cargo;
-import com.hackathon.hk_campusland_backend.integrantes.domain.entity.Integrante;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
 import jakarta.persistence.Embedded;
@@ -16,22 +16,22 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "integrantes_cargos")
+@Table(name = "usuarios_cargos")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class IntegranteCargo {
+public class UsuarioCargo {
     @EmbeddedId
-    private IntegranteCargoPK id;
+    private UsuarioCargoPK id;
 
     @ManyToOne
     @JoinColumn(name = "cargo_id", insertable = false, updatable = false)
     private Cargo cargo;
 
     @ManyToOne
-    @JoinColumn(name = "integrante_id", insertable = false, updatable = false)
-    private Integrante integrante;
+    @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
+    private User usuario;
 
     @Embedded
     private Audit audit = new Audit();

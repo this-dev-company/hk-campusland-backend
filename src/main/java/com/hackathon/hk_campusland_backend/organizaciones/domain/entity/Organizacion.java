@@ -1,13 +1,17 @@
 package com.hackathon.hk_campusland_backend.organizaciones.domain.entity;
 
+import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -44,9 +48,9 @@ public class Organizacion {
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String alias;
 
-    // @ManyToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "creador_id")
-    // private Persona persona;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_creador_id")
+    private User Usuario;
 
     @Embedded
     private Audit audit = new Audit();

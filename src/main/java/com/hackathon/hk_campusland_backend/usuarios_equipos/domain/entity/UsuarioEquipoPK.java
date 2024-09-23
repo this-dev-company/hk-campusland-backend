@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.integrantes_equipos.domain.entity;
+package com.hackathon.hk_campusland_backend.usuarios_equipos.domain.entity;
 
 import java.io.Serializable;
 
@@ -12,10 +12,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class IntegranteEquipoPK implements Serializable{
+public class UsuarioEquipoPK implements Serializable{
     @Column(name = "equipo_id")
     private Long equipo;
 
-    @Column(name = "integrante_id")
-    private Long integrante;
+    @Column(name = "usuario_id")
+    private Long usuario;
 }

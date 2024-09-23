@@ -1,6 +1,6 @@
-package com.hackathon.hk_campusland_backend.proyectos_integrantes.domain.entity;
+package com.hackathon.hk_campusland_backend.proyectos_usuarios.domain.entity;
 
-import com.hackathon.hk_campusland_backend.integrantes.domain.entity.Integrante;
+import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
@@ -16,22 +16,22 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "proyectos_integrantes")
+@Table(name = "proyectos_usuarios")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class ProyectoIntegrante {
+public class ProyectoUsuario {
     @EmbeddedId
-    private ProyectoIntegrantePK id;
+    private ProyectoUsuarioPK id;
 
     @ManyToOne
     @JoinColumn(name = "proyecto_id", insertable = false, updatable = false)
     private Proyecto proyecto;
 
     @ManyToOne
-    @JoinColumn(name = "integrante_id", insertable = false, updatable = false)
-    private Integrante integrante;
+    @JoinColumn(name = "usuario_id", insertable = false, updatable = false)
+    private User usuario;
 
     @Embedded
     private Audit audit = new Audit();
