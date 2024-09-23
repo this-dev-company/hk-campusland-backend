@@ -1,6 +1,5 @@
 package com.hackathon.hk_campusland_backend.proyectos_integrantes.domain.entity;
 
-import com.hackathon.hk_campusland_backend.integrantes.domain.entity.Integrante;
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 

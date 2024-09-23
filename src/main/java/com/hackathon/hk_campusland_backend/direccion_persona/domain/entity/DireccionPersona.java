@@ -1,7 +1,7 @@
 package com.hackathon.hk_campusland_backend.direccion_persona.domain.entity;
 
+import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 import com.hackathon.hk_campusland_backend.ciudades.domain.entity.Ciudad;
-import com.hackathon.hk_campusland_backend.personas.domain.entity.Persona;
 import com.hackathon.hk_campusland_backend.tipo_direccion.domain.entity.TipoDireccion;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
@@ -32,13 +32,13 @@ public class DireccionPersona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Por favor, añade un direccion  para la persona")
+    @NotBlank(message = "Por favor, añade un direccion para el usuario")
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String direccion;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "persona_id")
-    private Persona persona;
+    @JoinColumn(name = "usuario_id")
+    private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_direccion_id")
