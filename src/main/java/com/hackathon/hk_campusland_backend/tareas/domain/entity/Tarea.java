@@ -10,6 +10,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -65,6 +67,10 @@ public class Tarea {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tipo_tarea_id")
     private TipoTarea tipoTarea;
+
+    @Enumerated(EnumType.STRING)  
+    @Column(name = "estado_tarea", nullable = false)
+    private EstadoTarea estadoTarea;
 
     @Embedded
     private Audit audit = new Audit();

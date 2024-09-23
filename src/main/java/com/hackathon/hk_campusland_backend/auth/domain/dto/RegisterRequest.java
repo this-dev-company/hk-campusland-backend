@@ -1,6 +1,5 @@
 package com.hackathon.hk_campusland_backend.auth.domain.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
@@ -24,13 +23,21 @@ public class RegisterRequest {
     @Size(min = 8, max = 255, message = "Debe tener minimo 8 caracteres y maximo 255 caracteres")
     private String password;
 
-    @NotBlank(message = "Por favor, añade un alias")
-    @Size(min = 8, max = 20, message = "Debe tener minimo 8 caracteres y maximo 20 caracteres")
-    private String alias;
+    @NotBlank(message = "Por favor, añade un nombre")
+    @Size(min = 8, max = 255, message = "Debe tener minimo 8 caracteres y maximo 255 caracteres")
+    private String nombre;
 
-    private LocalDateTime createdAt;
+    @NotBlank(message = "Por favor, añade un apellido")
+    @Size(min = 8, max = 255, message = "Debe tener minimo 8 caracteres y maximo 255 caracteres")
+    private String apellido;
 
-    private LocalDateTime updatedAt;
+    @NotBlank(message = "Por favor, añade un email")
+    @Size(min = 8, max = 255, message = "Debe tener minimo 8 caracteres y maximo 255 caracteres")
+    private String email;
+
+    // private LocalDateTime createdAt;
+
+    // private LocalDateTime updatedAt;
 
     private List<String> roles;
 }
