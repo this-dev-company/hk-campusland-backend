@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.direccion_persona.domain.entity;
+package com.hackathon.hk_campusland_backend.direccion_usuarios.domain.entity;
 
 import com.hackathon.hk_campusland_backend.auth.domain.models.User;
 import com.hackathon.hk_campusland_backend.ciudades.domain.entity.Ciudad;
@@ -22,12 +22,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "direccion_persona")
+@Table(name = "direccion_usuarios")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class DireccionPersona {
+public class DireccionUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
