@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.auth.infrastructure.adapters;
+package com.hackathon.hk_campusland_backend.auth.application;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.hackathon.hk_campusland_backend.auth.application.services.UserService;
-import com.hackathon.hk_campusland_backend.auth.domain.models.User;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
+import com.hackathon.hk_campusland_backend.auth.domain.services.UserService;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.UserRepository;
 import com.hackathon.hk_campusland_backend.utils.exception.dto.BusinessException;
 
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserAdapter implements UserService{
+public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hackathon.hk_campusland_backend.auth.application.services.UserService;
-import com.hackathon.hk_campusland_backend.auth.domain.models.User;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
+import com.hackathon.hk_campusland_backend.auth.domain.services.UserService;
 
 import lombok.RequiredArgsConstructor;
 
