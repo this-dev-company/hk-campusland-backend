@@ -1,9 +1,6 @@
 package com.hackathon.hk_campusland_backend.auth.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hackathon.hk_campusland_backend.utils.Audit;
-
-
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -36,7 +33,6 @@ public class Rol {
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String rol;
 
-    @JsonIgnoreProperties({"roles", "handler", "hibernateLazyInitializer"})
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 

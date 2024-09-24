@@ -1,12 +1,10 @@
 package com.hackathon.hk_campusland_backend.auth.domain.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hackathon.hk_campusland_backend.generos.domain.entity.Genero;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -21,7 +19,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -42,7 +40,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name = "usuarios")
 public class User implements UserDetails {
 
     @Id
@@ -54,40 +52,42 @@ public class User implements UserDetails {
 
     @NotBlank(message = "Por favor, añade el nombre de usuario")
     @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
-    @Size(min = 8, max = 20, message = "Debe tener minimo 8 caracteres y maximo 20 caracteres")
+    @Size(min = 4, max = 20, message = "Debe tener minimo 4 caracteres y maximo 20 caracteres")
     private String username;
 
     @NotBlank(message = "Por favor, añade una contraseña")
-    @Size(min = 8, max = 255, message = "Debe tener minimo 8 caracteres y maximo 255 caracteres")
+    @Size(min = 4, max = 255, message = "Debe tener minimo 4 caracteres y maximo 255 caracteres")
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String password;
 
     @NotBlank(message = "Por favor, añade un nombre  para la persona")
-    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String nombre;
 
     @NotBlank(message = "Por favor, añade un apellido  para la persona")
-    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String apellido;
 
     @NotBlank(message = "Por favor, añade un email  para la persona")
-    @Column(columnDefinition = "VARCHAR(255)", nullable = false)
+    @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
+    @Column(columnDefinition = "VARCHAR(255)", nullable = false, unique = true) 
+    @Email(message = "Escribe el email, en formato: johndoe@gmail.com")
     private String email;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "genero_id")
     private Genero genero;
 
     @Embedded
     private Audit audit = new Audit();
 
-    @JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "usuarios_roles", 
         joinColumns = @JoinColumn(name = "usuario_id"), 
-        inverseJoinColumns = @JoinColumn(name = "rol_id"),
-        uniqueConstraints = { @UniqueConstraint(columnNames = {"usuario_id", "rol_id"})}
+        inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
     private List<Rol> roles;
 
