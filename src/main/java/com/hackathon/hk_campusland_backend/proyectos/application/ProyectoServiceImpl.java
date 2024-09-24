@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 import com.hackathon.hk_campusland_backend.proyectos.domain.service.ProyectoInterface;
@@ -11,6 +12,7 @@ import com.hackathon.hk_campusland_backend.proyectos.infrastructure.ProyectoRepo
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class ProyectoServiceImpl implements ProyectoInterface {
 
     @Autowired

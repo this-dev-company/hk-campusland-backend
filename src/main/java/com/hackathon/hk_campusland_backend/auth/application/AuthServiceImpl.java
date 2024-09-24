@@ -49,8 +49,18 @@ public class AuthServiceImpl {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         UserDetails user=userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.getToken(user);
+
+        // Fetch the user entity
+        User userResponse = existingUser_name.get(); 
+
+
         return AuthResponse.builder()
                 .token(token)
+                .id(userResponse.getId()) 
+                .username(userResponse.getUsername())
+                .nombre(userResponse.getNombre())
+                .apellido(userResponse.getApellido())
+                .email(userResponse.getEmail())
                 .build();
     }
 

@@ -1,8 +1,6 @@
 package com.hackathon.hk_campusland_backend.proyectos.infrastructure;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,18 +41,8 @@ public class ProyectoController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createProyecto(@Valid @RequestBody Proyecto proyecto, BindingResult result) {
-        // if (result.hasErrors()) {
-        //     return validation(result);
-        // }
         proyectoServiceImpl.save(proyecto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Proyecto created successfully");
     }
 
-    // private ResponseEntity<?> validation(BindingResult result) {
-    //     Map<String, String> errors = new HashMap<>();
-    //     result.getFieldErrors().forEach(err -> {
-    //         errors.put(err.getField(), "The field " + err.getField() + " " + err.getDefaultMessage());
-    //     });
-    //     return ResponseEntity.badRequest().body(errors);
-    // }
 }
