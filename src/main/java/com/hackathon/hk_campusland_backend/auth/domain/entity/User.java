@@ -1,10 +1,12 @@
 package com.hackathon.hk_campusland_backend.auth.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hackathon.hk_campusland_backend.generos.domain.entity.Genero;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -19,13 +21,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,13 +38,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "usuarios")
+@Table(name = "usuarios",  uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
 
     @Id
@@ -71,7 +75,7 @@ public class User implements UserDetails {
     private String apellido;
 
     @NotBlank(message = "Por favor, añade un email  para la persona")
-    @Size(min = 2, max = 20, message = "Debe tener minimo 2 caracteres y maximo 20 caracteres")
+    @Size(min = 4, max = 255, message = "Debe tener minimo 2 caracteres y maximo 255 caracteres")
     @Column(columnDefinition = "VARCHAR(255)", nullable = false, unique = true) 
     @Email(message = "Escribe el email, en formato: johndoe@gmail.com")
     private String email;
@@ -83,11 +87,13 @@ public class User implements UserDetails {
     @Embedded
     private Audit audit = new Audit();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
         name = "usuarios_roles", 
         joinColumns = @JoinColumn(name = "usuario_id"), 
-        inverseJoinColumns = @JoinColumn(name = "rol_id")
+        inverseJoinColumns = @JoinColumn(name = "rol_id"),
+        uniqueConstraints = { @UniqueConstraint(columnNames = {"usuario_id", "rol_id"})}
     )
     private List<Rol> roles;
 

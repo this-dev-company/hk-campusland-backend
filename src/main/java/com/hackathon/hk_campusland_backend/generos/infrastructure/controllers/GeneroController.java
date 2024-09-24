@@ -25,7 +25,7 @@ public class GeneroController {
     private GeneroService generoService;
 
     @GetMapping
-    public ResponseEntity<List<Genero>> listGeneroes() {
+    public ResponseEntity<List<Genero>> listGeneros() {
         List<Genero> generos = generoService.getAll();
         return new ResponseEntity<>(generos, HttpStatus.OK);
     } 
