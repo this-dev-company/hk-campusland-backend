@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hackathon.hk_campusland_backend.generos.domain.entity.Genero;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -88,7 +87,7 @@ public class User implements UserDetails {
     private Audit audit = new Audit();
 
     @JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "usuarios_roles", 
         joinColumns = @JoinColumn(name = "usuario_id"), 
