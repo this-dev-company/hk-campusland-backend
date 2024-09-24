@@ -3,7 +3,6 @@ package com.hackathon.hk_campusland_backend.organizaciones.domain.entity;
 import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -36,7 +35,7 @@ public class Organizacion {
 
     @NotBlank(message = "Por favor, añade un nombre para la organizacion")
     @Size(min = 5, max = 20, message = "Debe tener minimo 5 caracteres y maximo 20 caracteres")
-    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String nombre;
 
     @NotBlank(message = "Por favor, añade una descripcion")
@@ -45,12 +44,12 @@ public class Organizacion {
 
     @NotBlank(message = "Por favor, añade un alias para la organizacion")
     @Size(min = 5, max = 20, message = "Debe tener minimo 5 caracteres y maximo 20 caracteres")
-    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false, unique = true)
     private String alias;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "usuario_creador_id")
-    private User Usuario;
+    private User user;
 
     @Embedded
     private Audit audit = new Audit();
