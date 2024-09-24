@@ -67,9 +67,10 @@ public class AuthServiceImpl {
 
         
         List<Rol> roles = request.getRoles().stream()
-                .map(roleName -> roleRepository.findByRol(roleName)
-                        .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
-                .collect(Collectors.toList());
+        .map(roleName -> roleRepository.findByRol(roleName)
+                .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
+        .collect(Collectors.toList());
+
 
         User user = User.builder()
                 .username(request.getUsername())
