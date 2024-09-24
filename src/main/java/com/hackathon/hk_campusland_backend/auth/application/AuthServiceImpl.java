@@ -19,6 +19,9 @@ import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.RoleRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.repositories.UserRepository;
 import com.hackathon.hk_campusland_backend.auth.infrastructure.security.jwt.JwtService;
+import com.hackathon.hk_campusland_backend.generos.domain.entity.Genero;
+import com.hackathon.hk_campusland_backend.generos.infrastructure.repositories.GeneroRepository;
+import com.hackathon.hk_campusland_backend.utils.Audit;
 import com.hackathon.hk_campusland_backend.utils.exception.dto.BusinessException;
 
 import lombok.RequiredArgsConstructor;
@@ -28,7 +31,9 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImpl {
 
     private final RoleRepository roleRepository;
-    private final UserRepository userRepository; // Repositorio para guardar el usuario
+    private final UserRepository userRepository; 
+    private final GeneroRepository generoRepository;
+
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -51,11 +56,14 @@ public class AuthServiceImpl {
 
     public AuthResponse register(RegisterRequest request) {
 
-        Optional<User> existingUser_name = userRepository.findByUsername(request.getUsername());
-        
-        if (existingUser_name.isPresent()) {
+        Optional<User> existingUser_username = userRepository.findByUsername(request.getUsername());
+
+        if (existingUser_username.isPresent()) {
             throw new BusinessException("P-300", HttpStatus.CONFLICT, "El Usuario con ese nombre ya existe");
         } 
+
+        Genero genero = generoRepository.findById(request.getGenero())
+            .orElseThrow(() -> new BusinessException("P-300", HttpStatus.CONFLICT, "El Genero no existe"));
 
         
         List<Rol> roles = request.getRoles().stream()
@@ -63,14 +71,16 @@ public class AuthServiceImpl {
                         .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
                 .collect(Collectors.toList());
 
-                
-
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode( request.getPassword())) 
+                .nombre(request.getNombre())
+                .apellido(request.getApellido())
+                .email(request.getEmail())
+                .genero(genero)
                 .roles(roles) 
-                .audit(null)
                 .enabled(true) 
+                .audit(new Audit())
                 .build();
 
         userRepository.save(user);
