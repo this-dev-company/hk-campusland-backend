@@ -2,6 +2,7 @@ package com.hackathon.hk_campusland_backend.organizaciones_proyectos.application
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.entit
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.entity.OrganizacionProyectoPK;
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.service.OrganizacionProyectoInterface;
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.infrastructure.OrganizacionProyectoRepository;
+import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 
 import jakarta.transaction.Transactional;
 
@@ -22,7 +24,7 @@ public class OrganizacionProyectoServiceImpl implements OrganizacionProyectoInte
     @Override
     @Transactional
     public void save(OrganizacionProyecto organizacionProyecto) {
-         organizacionProyectoRepository.save(organizacionProyecto);
+        organizacionProyectoRepository.save(organizacionProyecto);
     }
 
     @Override
@@ -49,5 +51,14 @@ public class OrganizacionProyectoServiceImpl implements OrganizacionProyectoInte
     @Transactional
     public Optional<OrganizacionProyecto> findById(OrganizacionProyectoPK id) {
         return organizacionProyectoRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Proyecto> findProyectosByOrganizacionId(Long organizacionId) {
+        return organizacionProyectoRepository.findByOrganizacionId(organizacionId)
+                .stream()
+                .map(organizacionProyecto -> organizacionProyecto.getProyecto())
+                .collect(Collectors.toList());
     }
 }

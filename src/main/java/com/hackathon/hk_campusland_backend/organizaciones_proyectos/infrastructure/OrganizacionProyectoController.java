@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.application.OrganizacionProyectoServiceImpl;
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.entity.OrganizacionProyecto;
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.entity.OrganizacionProyectoPK;
+import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 
 import jakarta.validation.Valid;
 
@@ -35,8 +36,8 @@ public class OrganizacionProyectoController {
 
     @GetMapping("/{organizacionId}/{proyectoId}")
     public ResponseEntity<OrganizacionProyecto> showOrganizacionProyecto(
-        @PathVariable Long organizacionId,
-    @PathVariable Long proyectoId) {
+            @PathVariable Long organizacionId,
+            @PathVariable Long proyectoId) {
         OrganizacionProyectoPK id = new OrganizacionProyectoPK();
         id.setOrganizacion(organizacionId);
         id.setProyecto(proyectoId);
@@ -45,13 +46,22 @@ public class OrganizacionProyectoController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/find-projects-of-org/{organizacionId}")
+    public ResponseEntity<List<Proyecto>> getProyectosByOrganizacionId(@PathVariable Long organizacionId) {
+        List<Proyecto> proyectos = organizacionProyectoServiceImpl.findProyectosByOrganizacionId(organizacionId);
+        if (proyectos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(proyectos, HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createOrganizacionProyecto(@Valid @RequestBody OrganizacionProyecto organizacionProyecto,
             BindingResult result) {
-                if (result.hasErrors()) {
-                    return ResponseEntity.badRequest().body(result.getAllErrors());
-                }
-            
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(result.getAllErrors());
+        }
+
         organizacionProyectoServiceImpl.save(organizacionProyecto);
         return ResponseEntity.status(HttpStatus.CREATED).body("OrganizacionProyecto created successfully");
     }
