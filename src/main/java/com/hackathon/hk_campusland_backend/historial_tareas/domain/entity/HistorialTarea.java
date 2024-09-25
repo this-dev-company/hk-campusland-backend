@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,7 @@ public class HistorialTarea {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descripcion;
     
-    @NotBlank(message = "Por favor, añade cantidad de horas")
+    @NotNull(message = "Por favor, añade cantidad de horas")
     @Column(columnDefinition = "INT",nullable = false)
     private int horas = 0;
 
