@@ -5,7 +5,6 @@ import com.hackathon.hk_campusland_backend.organizaciones.domain.entity.Organiza
 import com.hackathon.hk_campusland_backend.tipo_direccion.domain.entity.TipoDireccion;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -16,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +26,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class DireccionOrganizacion {
     @Id
@@ -36,15 +37,15 @@ public class DireccionOrganizacion {
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String direccion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "organizacion_id")
     private Organizacion organizacion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "tipo_direccion_id")
     private TipoDireccion tipoDireccion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ciudad_id")
     private Ciudad ciudad;
 
