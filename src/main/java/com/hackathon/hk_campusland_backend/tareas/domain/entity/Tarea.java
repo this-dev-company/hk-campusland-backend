@@ -6,12 +6,12 @@ import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 import com.hackathon.hk_campusland_backend.tipo_tarea.domain.entity.TipoTarea;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,23 +49,23 @@ public class Tarea {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descripcion;
 
-    @NotBlank(message = "Por favor, añade una fecha de inicio")
+    @NotNull(message = "Por favor, añade una fecha de inicio")
     @Column(name = "fecha_inicio")
     private LocalDateTime startAt;
 
-    @NotBlank(message = "Por favor, añade una fecha final")
+    @NotNull(message = "Por favor, añade una fecha final")
     @Column(name = "fecha_final")
     private LocalDateTime endAt;
 
-    @NotBlank(message = "Por favor, añade las horas estimadas")
+    @NotNull(message = "Por favor, añade las horas estimadas")
     @Column(name = "horas_estimadas")
     private Integer horasEstimadas;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "proyecto_id")
     private Proyecto proyecto;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_tarea_id")
     private TipoTarea tipoTarea;
 

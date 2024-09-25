@@ -36,7 +36,7 @@ public class Ciudad {
     @Column(columnDefinition = "VARCHAR(50)", nullable = false)
     private String nombre;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "pais_id")
     private Pais pais;
 

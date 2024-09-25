@@ -3,7 +3,6 @@ package com.hackathon.hk_campusland_backend.equipos.domain.entity;
 import com.hackathon.hk_campusland_backend.organizaciones.domain.entity.Organizacion;
 import com.hackathon.hk_campusland_backend.utils.Audit;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -42,7 +41,7 @@ public class Equipo {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descripcion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "organizacion_id")
     private Organizacion organizacion;
 
