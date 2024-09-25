@@ -26,7 +26,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ComentariosTarea {
+public class ComentarioTarea {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

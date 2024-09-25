@@ -49,7 +49,7 @@ public class Organizacion {
 
     @ManyToOne
     @JoinColumn(name = "usuario_creador_id")
-    private User user;
+    private User usuario_creador_id;
 
     @Embedded
     private Audit audit = new Audit();
