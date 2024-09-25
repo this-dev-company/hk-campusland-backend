@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hackathon.hk_campusland_backend.auth.domain.models.User;
+import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
