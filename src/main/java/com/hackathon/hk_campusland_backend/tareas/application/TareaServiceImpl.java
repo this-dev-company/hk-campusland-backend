@@ -80,4 +80,9 @@ public class TareaServiceImpl implements TareaService {
             throw new EntityNotFoundException("Tarea not found with id: " + id);
         }
     }
+
+    @Override
+    public Optional<Tarea> findTareasByProyecto(Long proyecto) {
+        return tareaRepository.findByProyectoId(proyecto);
+    }
 }

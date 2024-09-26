@@ -14,15 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackathon.hk_campusland_backend.proyectos.application.ProyectoServiceImpl;
-import com.hackathon.hk_campusland_backend.proyectos.domain.dto.ProyectoDTO;
+import com.hackathon.hk_campusland_backend.proyectos.domain.dto.OrganizacionDTO;
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/proyecto")
 public class ProyectoController {
-@Autowired
+    @Autowired
     ProyectoServiceImpl proyectoServiceImpl;
 
     @Autowired
@@ -41,14 +43,16 @@ public class ProyectoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProyecto(@Valid @RequestBody Proyecto proyecto, BindingResult result) {
+    public ResponseEntity<?> createProyecto(@Valid @RequestBody Proyecto proyecto, BindingResult result) {        
         proyectoServiceImpl.save(proyecto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Proyecto created successfully");
+        return proyectoServiceImpl.findById(proyecto.getId())
+                .map(org -> new ResponseEntity<>(org, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/find-proyects-by-user/{usuarioId}")
-    public ResponseEntity<List<ProyectoDTO>> findProyectsByUserId(@PathVariable Long usuarioId){
-        List<ProyectoDTO> proyectos = proyectoServiceImpl.findProyectsByUserId(usuarioId);
+    public ResponseEntity<List<OrganizacionDTO>> findProyectsByUserId(@PathVariable Long usuarioId){
+        List<OrganizacionDTO> proyectos = proyectoServiceImpl.findProyectsByUserId(usuarioId);
         if (proyectos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
