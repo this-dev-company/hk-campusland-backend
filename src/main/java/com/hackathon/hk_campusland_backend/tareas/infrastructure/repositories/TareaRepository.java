@@ -1,6 +1,5 @@
 package com.hackathon.hk_campusland_backend.tareas.infrastructure.repositories;
 
-import java.util.Optional;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +11,7 @@ import com.hackathon.hk_campusland_backend.tareas.domain.entity.Tarea;
 
 @Repository
 public interface TareaRepository extends JpaRepository<Tarea, Long> {
-    Optional<Tarea> findByProyectoId(Long proyecto);
+    List<Tarea> findByProyectoId(Long proyecto);
 
     @Query("SELECT t " +
        "FROM Notificacion n " +
