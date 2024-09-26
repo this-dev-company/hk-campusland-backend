@@ -16,4 +16,6 @@ public interface TareaService {
     List<Tarea> getAll();
     
     Tarea save(Tarea tarea);
+
+    Optional<Tarea> findTareasByProyecto(Long proyecto);
 }
