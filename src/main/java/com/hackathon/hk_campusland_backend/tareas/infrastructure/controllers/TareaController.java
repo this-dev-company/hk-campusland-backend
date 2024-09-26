@@ -44,10 +44,21 @@ public class TareaController {
     }
 
     @GetMapping("/find-tareas-by-proyecto/{proyecto}")
-    public ResponseEntity<Tarea> showTareaByProyecto(@PathVariable Long proyecto) {
-        return tareaService.findTareasByProyecto(proyecto)
-                .map(tarea -> new ResponseEntity<>(tarea, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<List<Tarea>> showTareasByProyectoId(@PathVariable Long proyecto) {
+        List<Tarea> tareas = tareaService.findTareasByProyecto(proyecto);
+        if (tareas.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(tareas, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-tareas-of-user/{usuarioId}")
+    public ResponseEntity<List<Tarea>> getTareasByUsuarioId(@PathVariable Long usuarioId) {
+        List<Tarea> tareas = tareaService.findTareaByUser(usuarioId);
+        if (tareas.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(tareas, HttpStatus.OK);
     }
 
     @PostMapping
