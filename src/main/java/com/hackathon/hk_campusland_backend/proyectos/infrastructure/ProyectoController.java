@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackathon.hk_campusland_backend.proyectos.application.ProyectoServiceImpl;
+import com.hackathon.hk_campusland_backend.proyectos.domain.dto.ProyectoDTO;
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 
 import jakarta.validation.Valid;
@@ -43,6 +44,15 @@ public class ProyectoController {
     public ResponseEntity<?> createProyecto(@Valid @RequestBody Proyecto proyecto, BindingResult result) {
         proyectoServiceImpl.save(proyecto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Proyecto created successfully");
+    }
+
+    @GetMapping("/find-proyects-by-user/{usuarioId}")
+    public ResponseEntity<List<ProyectoDTO>> findProyectsByUserId(@PathVariable Long usuarioId){
+        List<ProyectoDTO> proyectos = proyectoServiceImpl.findProyectsByUserId(usuarioId);
+        if (proyectos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(proyectos, HttpStatus.OK);
     }
 
 }

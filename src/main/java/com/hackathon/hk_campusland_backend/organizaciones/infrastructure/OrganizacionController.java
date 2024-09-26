@@ -32,9 +32,16 @@ public class OrganizacionController {
         return organizacionServiceImpl.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Organizacion> showOrganizacion(@PathVariable Long id) {
+    @GetMapping("/find-by-id/{id}")
+    public ResponseEntity<Organizacion> showOrganizacionById(@PathVariable Long id) {
         return organizacionServiceImpl.findById(id)
+                .map(organizacion -> new ResponseEntity<>(organizacion, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/find-by-alias/{alias}")
+    public ResponseEntity<Organizacion> showOrganizacionByAlias(@PathVariable String alias) {
+        return organizacionServiceImpl.findOrganizacionByAlias(alias)
                 .map(organizacion -> new ResponseEntity<>(organizacion, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

@@ -16,6 +16,7 @@ import com.hackathon.hk_campusland_backend.historial_tareas.domain.entity.Histor
 import com.hackathon.hk_campusland_backend.historial_tareas.domain.services.HistorialTareaService;
 
 import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -43,5 +44,17 @@ public class HistorialTareaController {
     public ResponseEntity<HistorialTarea> saveHistorialTarea(@Valid @RequestBody HistorialTarea historialTarea) {
         HistorialTarea newHistorialTarea = historialTareaService.save(historialTarea);
         return new ResponseEntity<>(newHistorialTarea, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<Integer> getHorasTrabajadasByUsuarioId(@PathVariable Long id) {
+        Integer horas = historialTareaService.horasTrabajadasByUsuarioId(id);
+        return ResponseEntity.ok(horas);
+    }
+
+    @GetMapping("/tarea/{id}")
+    public ResponseEntity<Integer> findHorasByTareaId(@PathVariable Long id){
+        Integer horas = historialTareaService.findHorasByTareaId(id);
+        return ResponseEntity.ok(horas);
     }
 }

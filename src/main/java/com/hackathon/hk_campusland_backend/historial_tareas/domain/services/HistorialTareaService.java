@@ -12,4 +12,8 @@ public interface HistorialTareaService {
     List<HistorialTarea> getAll();
     
     HistorialTarea save(HistorialTarea historialTarea);
+
+    Integer horasTrabajadasByUsuarioId(Long usuarioId);
+
+    Integer findHorasByTareaId(Long tareaId);
 }

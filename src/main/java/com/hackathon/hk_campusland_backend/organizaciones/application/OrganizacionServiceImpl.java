@@ -50,4 +50,10 @@ public class OrganizacionServiceImpl implements OrganizacionInterface {
         return organizacionRepository.findById(id);
     }
 
+    @Override
+    @Transactional
+    public Optional<Organizacion> findOrganizacionByAlias(String alias) {
+        return organizacionRepository.findByAlias(alias);
+    }
+
 }
