@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hackathon.hk_campusland_backend.auth.domain.entity.User;
 import com.hackathon.hk_campusland_backend.organizaciones.domain.entity.Organizacion;
 import com.hackathon.hk_campusland_backend.organizaciones.domain.service.OrganizacionInterface;
 import com.hackathon.hk_campusland_backend.organizaciones.infrastructure.OrganizacionRepository;
@@ -54,6 +55,12 @@ public class OrganizacionServiceImpl implements OrganizacionInterface {
     @Transactional
     public Optional<Organizacion> findOrganizacionByAlias(String alias) {
         return organizacionRepository.findByAlias(alias);
+    }
+
+    @Override
+    @Transactional
+    public List<Organizacion> findByUsuarioCreadorId(User usuario_creador_id) {
+        return organizacionRepository.findByUsuarioCreador(usuario_creador_id);
     }
 
 }
