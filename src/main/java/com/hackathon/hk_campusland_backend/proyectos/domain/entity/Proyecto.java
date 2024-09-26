@@ -6,6 +6,8 @@ import com.hackathon.hk_campusland_backend.utils.Audit;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,6 +43,10 @@ public class Proyecto {
     @NotBlank(message = "Por favor, añade una descripcion")
     @Column(columnDefinition = "TEXT", nullable = false)
     private String descripcion;
+
+    @Enumerated(EnumType.STRING)  
+    @Column(name = "estado_proyecto", nullable = false)
+    private EstadoProyecto estadoProyecto;
 
     @ManyToOne
     @JoinColumn(name = "usuario_creador_id")
