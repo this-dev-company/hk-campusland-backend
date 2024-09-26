@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.entity.OrganizacionProyecto;
@@ -12,6 +13,7 @@ import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.entit
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.domain.service.OrganizacionProyectoInterface;
 import com.hackathon.hk_campusland_backend.organizaciones_proyectos.infrastructure.OrganizacionProyectoRepository;
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
+import com.hackathon.hk_campusland_backend.utils.exception.dto.BusinessException;
 
 import jakarta.transaction.Transactional;
 
@@ -56,6 +58,13 @@ public class OrganizacionProyectoServiceImpl implements OrganizacionProyectoInte
     @Override
     @Transactional
     public List<Proyecto> findProyectosByOrganizacionId(Long organizacionId) {
+
+        List<OrganizacionProyecto> proyectos = organizacionProyectoRepository.findByOrganizacionId(organizacionId);
+        
+        if (proyectos.isEmpty()) {
+            throw new BusinessException("P-404", HttpStatus.NOT_FOUND, "No hay proyectos registrados a esa organizacion");
+        }
+
         return organizacionProyectoRepository.findByOrganizacionId(organizacionId)
                 .stream()
                 .map(organizacionProyecto -> organizacionProyecto.getProyecto())
