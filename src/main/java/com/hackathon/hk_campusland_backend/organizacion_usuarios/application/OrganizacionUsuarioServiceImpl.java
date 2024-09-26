@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hackathon.hk_campusland_backend.organizacion_usuarios.domain.dto.UsuariosOrganizacionDTO;
 import com.hackathon.hk_campusland_backend.organizacion_usuarios.domain.entity.OrganizacionUsuario;
 import com.hackathon.hk_campusland_backend.organizacion_usuarios.domain.entity.OrganizacionUsuarioPK;
 import com.hackathon.hk_campusland_backend.organizacion_usuarios.domain.services.OrganizacionUsuarioService;
@@ -62,5 +63,10 @@ public class OrganizacionUsuarioServiceImpl implements OrganizacionUsuarioServic
                 .stream()
                 .map(organizacionUsuario -> organizacionUsuario.getOrganizacion())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UsuariosOrganizacionDTO> findUsuariosByOrganizacionId(Long organizacionId) {
+        return organizacionUsuarioRepository.getAllUsuariosByOrganizacionId(organizacionId);
     }
 }
