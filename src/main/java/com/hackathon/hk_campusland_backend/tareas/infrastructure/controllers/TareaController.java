@@ -50,6 +50,15 @@ public class TareaController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/find-tareas-of-user/{usuarioId}")
+    public ResponseEntity<List<Tarea>> getTareasByUsuarioId(@PathVariable Long usuarioId) {
+        List<Tarea> tareas = tareaService.findTareaByUser(usuarioId);
+        if (tareas.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(tareas, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Tarea> saveTarea(@Valid @RequestBody Tarea tarea) {
         Tarea newTarea = tareaService.save(tarea);

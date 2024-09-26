@@ -85,4 +85,9 @@ public class TareaServiceImpl implements TareaService {
     public Optional<Tarea> findTareasByProyecto(Long proyecto) {
         return tareaRepository.findByProyectoId(proyecto);
     }
+
+    @Override
+    public List<Tarea> findTareaByUser(long userId) {
+        return tareaRepository.findTareasByUsuarioId(userId);
+    }
 }
