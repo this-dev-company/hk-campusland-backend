@@ -29,9 +29,16 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> showUser(@PathVariable Long id){
+    @GetMapping("/find-user-by-id/{id}")
+    public ResponseEntity<User> showUserById(@PathVariable Long id){
         return userService.findById(id)
+            .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/find-user-by-username/{username}")
+    public ResponseEntity<User> showUserByUsername(@PathVariable String username){
+        return userService.findByUsername(username)
             .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

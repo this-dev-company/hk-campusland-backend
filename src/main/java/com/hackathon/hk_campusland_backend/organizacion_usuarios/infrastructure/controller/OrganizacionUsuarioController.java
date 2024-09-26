@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackathon.hk_campusland_backend.organizacion_usuarios.application.OrganizacionUsuarioServiceImpl;
+import com.hackathon.hk_campusland_backend.organizacion_usuarios.domain.dto.UsuariosOrganizacionDTO;
 import com.hackathon.hk_campusland_backend.organizacion_usuarios.domain.entity.OrganizacionUsuario;
 import com.hackathon.hk_campusland_backend.organizacion_usuarios.domain.entity.OrganizacionUsuarioPK;
 import com.hackathon.hk_campusland_backend.organizaciones.domain.entity.Organizacion;
@@ -53,6 +54,15 @@ public class OrganizacionUsuarioController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(organizaciones, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-users-by-org-id/{organizacionId}")
+    public ResponseEntity<List<UsuariosOrganizacionDTO>> getUsuariosByOrganizacionId(@PathVariable Long organizacionId) {
+        List<UsuariosOrganizacionDTO> usuarios = organizacionUsuarioServiceImpl.findUsuariosByOrganizacionId(organizacionId);
+        if (usuarios.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
     @PostMapping("/create")

@@ -32,6 +32,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Optional<User> findByUsername(String username) {
+
+        if (!userRepository.findByUsername(username).isPresent()) {
+            throw new BusinessException("P-404", HttpStatus.NOT_FOUND, "El usuario no existe");
+        }
+
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public List<User> getAll() {
         List<User> users = userRepository.findAll();
 
