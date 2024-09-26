@@ -3,6 +3,7 @@ package com.hackathon.hk_campusland_backend.cargos_organizaciones.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class CargoOrganizacionPK {
     @Column(name = "organizacion_id")
     private Long organizacion;
