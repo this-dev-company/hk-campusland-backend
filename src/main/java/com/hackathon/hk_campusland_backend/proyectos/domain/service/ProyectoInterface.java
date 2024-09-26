@@ -3,7 +3,7 @@ package com.hackathon.hk_campusland_backend.proyectos.domain.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.hackathon.hk_campusland_backend.proyectos.domain.dto.ProyectoDTO;
+import com.hackathon.hk_campusland_backend.proyectos.domain.dto.OrganizacionDTO;
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 
 public interface ProyectoInterface {
@@ -13,5 +13,5 @@ public interface ProyectoInterface {
     List<Proyecto>  findAll();
     Optional<Proyecto> findById(Long id);
 
-    List<ProyectoDTO> findProyectsByUserId(long userId);
+    List<OrganizacionDTO> findProyectsByUserId(long userId);
 }
