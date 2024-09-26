@@ -55,7 +55,9 @@ public class OrganizacionController {
     @PostMapping("/create")
     public ResponseEntity<?> createOrganizacion(@Valid @RequestBody Organizacion organizacion, BindingResult result) {
         organizacionServiceImpl.save(organizacion);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Organizacion created successfully");
+        return organizacionServiceImpl.findOrganizacionByAlias(organizacion.getAlias())
+                .map(org -> new ResponseEntity<>(org, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/by-usuario-creador/{usuarioCreadorId}")
