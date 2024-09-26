@@ -11,4 +11,6 @@ public interface OrganizacionInterface {
     void update(Long id, Organizacion organizacion);
     List<Organizacion>  findAll();
     Optional<Organizacion> findById(Long id);
+
+    Optional<Organizacion> findOrganizacionByAlias(String alias);
 }

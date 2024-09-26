@@ -46,4 +46,14 @@ public class HistorialTareaServiceImpl implements HistorialTareaService {
     public HistorialTarea save(HistorialTarea historialTarea) {
         return historialTareaRepository.save(historialTarea);
     }
+
+    @Override
+    public Integer horasTrabajadasByUsuarioId(Long usuarioId) {
+        return historialTareaRepository.findHorasByUsuarioId(usuarioId);
+    }
+
+    @Override
+    public Integer findHorasByTareaId(Long tareaId) {
+        return historialTareaRepository.sumHorasByTareaId(tareaId);
+    }
 }
