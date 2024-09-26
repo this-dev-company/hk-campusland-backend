@@ -9,6 +9,10 @@ public interface TareaService {
 
     Optional<Tarea> findById(Long id);
 
+    void delete(Tarea tarea);
+
+    void update(Long id, Tarea tarea);
+
     List<Tarea> getAll();
     
     Tarea save(Tarea tarea);
