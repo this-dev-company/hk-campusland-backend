@@ -18,11 +18,13 @@ import com.hackathon.hk_campusland_backend.proyectos.domain.dto.OrganizacionDTO;
 import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/proyecto")
 public class ProyectoController {
-@Autowired
+    @Autowired
     ProyectoServiceImpl proyectoServiceImpl;
 
     @Autowired
@@ -41,9 +43,11 @@ public class ProyectoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProyecto(@Valid @RequestBody Proyecto proyecto, BindingResult result) {
+    public ResponseEntity<?> createProyecto(@Valid @RequestBody Proyecto proyecto, BindingResult result) {        
         proyectoServiceImpl.save(proyecto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Proyecto created successfully");
+        return proyectoServiceImpl.findById(proyecto.getId())
+                .map(org -> new ResponseEntity<>(org, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/find-proyects-by-user/{usuarioId}")

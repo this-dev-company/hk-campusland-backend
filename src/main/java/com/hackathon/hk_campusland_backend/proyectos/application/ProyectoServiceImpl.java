@@ -17,8 +17,10 @@ import com.hackathon.hk_campusland_backend.proyectos.infrastructure.ProyectoRepo
 import com.hackathon.hk_campusland_backend.utils.exception.dto.BusinessException;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ProyectoServiceImpl implements ProyectoInterface {
 
     @Autowired
@@ -27,7 +29,7 @@ public class ProyectoServiceImpl implements ProyectoInterface {
     @Override
     @Transactional
     public void save(Proyecto proyecto) {
-         proyectoRepository.save(proyecto);
+        proyectoRepository.save(proyecto);
     }
 
     @Override
@@ -58,22 +60,18 @@ public class ProyectoServiceImpl implements ProyectoInterface {
 
     @Override
     public List<OrganizacionDTO> findProyectsByUserId(long userId) {
-    // Obtener las organizaciones asociadas al usuario
+
     List<Organizacion> organizaciones = proyectoRepository.findOrganizacionesByUsuarioId(userId);
 
     if (organizaciones.isEmpty()) {
         throw new BusinessException("P-404", HttpStatus.NOT_FOUND, "No hay organizaciones registradas a ese usuario");
     }
 
-    // Crear la lista de OrganizacionDTO
     List<OrganizacionDTO> organizacionDTOList = new ArrayList<>();
 
-    // Iterar por cada organización y obtener sus proyectos
     for (Organizacion organizacion : organizaciones) {
-        // Obtener los proyectos de la organización
         List<ProyectoDTO> proyectos = proyectoRepository.findProyectosByOrganizacionId(organizacion.getId());
 
-        // Crear el DTO de la organización con sus proyectos
         OrganizacionDTO organizacionDTO = new OrganizacionDTO(organizacion.getNombre(), proyectos);
         organizacionDTOList.add(organizacionDTO);
     }

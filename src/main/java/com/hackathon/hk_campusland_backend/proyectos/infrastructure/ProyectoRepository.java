@@ -1,6 +1,7 @@
 package com.hackathon.hk_campusland_backend.proyectos.infrastructure;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,8 @@ import com.hackathon.hk_campusland_backend.proyectos.domain.entity.Proyecto;
 
 @Repository
 public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
+
+   Optional<Proyecto> findById(Long id);
     
     @Query("SELECT DISTINCT o " +
        "FROM Organizacion o " +

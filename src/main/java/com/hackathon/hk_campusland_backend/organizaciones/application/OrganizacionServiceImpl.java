@@ -1,4 +1,4 @@
-package com.hackathon.hk_campusland_backend.organizaciones.application;
+    package com.hackathon.hk_campusland_backend.organizaciones.application;
 
 import java.util.List;
 import java.util.Optional;
