@@ -43,6 +43,13 @@ public class TareaController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/find-tareas-by-proyecto/{proyecto}")
+    public ResponseEntity<Tarea> showTareaByProyecto(@PathVariable Long proyecto) {
+        return tareaService.findTareasByProyecto(proyecto)
+                .map(tarea -> new ResponseEntity<>(tarea, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping
     public ResponseEntity<Tarea> saveTarea(@Valid @RequestBody Tarea tarea) {
         Tarea newTarea = tareaService.save(tarea);
